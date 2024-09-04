@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
+import { validateUser } from '../utils/database';
 
 const Login = ({ onLogin }) => {
   const [username, setUsername] = useState('');
@@ -11,10 +12,11 @@ const Login = ({ onLogin }) => {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    // In a real app, you would validate credentials here
-    if (username && password) {
+    if (validateUser(username, password)) {
       onLogin(username);
       navigate('/');
+    } else {
+      alert('Invalid username or password');
     }
   };
 
@@ -46,7 +48,7 @@ const Login = ({ onLogin }) => {
         <CardFooter>
           <Button className="w-full" onClick={handleLogin}>Log In</Button>
         </CardFooter>
-        <div className="text-center mt-4">
+        <div className="text-center mt-4 mb-4">
           <a href="/signup" className="text-blue-500 hover:underline">Don't have an account? Sign up</a>
         </div>
       </Card>

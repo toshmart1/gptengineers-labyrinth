@@ -3,8 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
+import { addUser } from '../utils/database';
 
-const SignUp = ({ onSignUp }) => {
+const SignUp = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -16,9 +17,12 @@ const SignUp = ({ onSignUp }) => {
       alert("Passwords don't match!");
       return;
     }
-    // In a real app, you would send this data to your backend
-    onSignUp(username);
-    navigate('/');
+    if (addUser(username, password)) {
+      alert('Sign up successful! Please log in.');
+      navigate('/login');
+    } else {
+      alert('Username already exists. Please choose a different one.');
+    }
   };
 
   return (
@@ -58,7 +62,7 @@ const SignUp = ({ onSignUp }) => {
         <CardFooter>
           <Button className="w-full" onClick={handleSignUp}>Sign Up</Button>
         </CardFooter>
-        <div className="text-center mt-4">
+        <div className="text-center mt-4 mb-4">
           <a href="/login" className="text-blue-500 hover:underline">Already have an account? Log in</a>
         </div>
       </Card>
