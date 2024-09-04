@@ -1,25 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
-const ChatInterface = () => {
+const ChatInterface = ({ onSendMessage, aiResponse }) => {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
 
+  useEffect(() => {
+    if (aiResponse) {
+      setMessages(prev => [...prev, { text: aiResponse, sender: 'ai' }]);
+    }
+  }, [aiResponse]);
+
   const handleSendMessage = () => {
     if (input.trim()) {
-      setMessages([...messages, { text: input, sender: 'user' }]);
+      const newMessage = { text: input, sender: 'user' };
+      setMessages(prev => [...prev, newMessage]);
+      onSendMessage(input);
       setInput('');
-      // Simulate AI response
-      setTimeout(() => {
-        setMessages(prev => [...prev, { text: "I'm a simple AI assistant. I can't actually modify code, but I can pretend to respond!", sender: 'ai' }]);
-      }, 1000);
     }
   };
 
   return (
-    <div className="flex flex-col h-[calc(100vh-8rem)] bg-white rounded-lg shadow-md">
+    <div className="flex flex-col h-[calc(100vh-12rem)] bg-white rounded-lg shadow-md">
       <ScrollArea className="flex-grow p-4">
         {messages.map((message, index) => (
           <div key={index} className={`mb-4 ${message.sender === 'user' ? 'text-right' : 'text-left'}`}>
