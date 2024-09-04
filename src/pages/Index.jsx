@@ -1,9 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import ChatInterface from '../components/ChatInterface';
 import AIAssistant from '../components/AIAssistant';
 
 const Index = () => {
   const [aiResponse, setAIResponse] = useState('');
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const loggedInUser = localStorage.getItem('user');
+    if (loggedInUser) {
+      setIsLoggedIn(true);
+    } else {
+      navigate('/login');
+    }
+  }, [navigate]);
 
   const handleSendMessage = (message) => {
     console.log('User message:', message);
@@ -13,6 +25,10 @@ const Index = () => {
   const handleGenerateResponse = (response) => {
     setAIResponse(response);
   };
+
+  if (!isLoggedIn) {
+    return null; // or a loading spinner
+  }
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-100">
