@@ -22,8 +22,8 @@ const SignUp = ({ onSignUp }) => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <Card className="w-[350px]">
+    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-yellow-300 to-orange-500">
+      <Card className="w-[350px] bg-white bg-opacity-90 backdrop-filter backdrop-blur-lg">
         <CardHeader>
           <CardTitle>Sign Up</CardTitle>
           <CardDescription>Create a new account to access the app.</CardDescription>

@@ -19,8 +19,8 @@ const Login = ({ onLogin }) => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <Card className="w-[350px]">
+    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-green-400 to-blue-500">
+      <Card className="w-[350px] bg-white bg-opacity-90 backdrop-filter backdrop-blur-lg">
         <CardHeader>
           <CardTitle>Login</CardTitle>
           <CardDescription>Enter your credentials to access the app.</CardDescription>
