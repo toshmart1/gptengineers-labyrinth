@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ChatInterface from '../components/ChatInterface';
 import AIAssistant from '../components/AIAssistant';
+import Welcome from '../components/Welcome';
 
 const Index = () => {
   const [aiResponse, setAIResponse] = useState('');
@@ -12,10 +13,8 @@ const Index = () => {
     const loggedInUser = localStorage.getItem('user');
     if (loggedInUser) {
       setIsLoggedIn(true);
-    } else {
-      navigate('/login');
     }
-  }, [navigate]);
+  }, []);
 
   const handleSendMessage = (message) => {
     console.log('User message:', message);
@@ -27,7 +26,7 @@ const Index = () => {
   };
 
   if (!isLoggedIn) {
-    return null; // or a loading spinner
+    return <Welcome />;
   }
 
   return (
